@@ -8,3 +8,5 @@ spring:
       ddl-auto: validate
   jooq:
     sql-dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 10000

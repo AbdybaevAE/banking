@@ -8,7 +8,7 @@ import kz.abdybaev.banking.app.cardssystem.services.dto.CreateCardArgs;
 import kz.abdybaev.banking.app.cardssystem.services.dto.CreateCardRes;
 import kz.abdybaev.banking.app.cardssystem.services.dto.GetCardItemRes;
 import kz.abdybaev.banking.lib.cardssystem.dto.BalanceItemDto;
-import kz.abdybaev.banking.lib.common.exceptions.BadArgumentsException;
+import kz.abdybaev.banking.lib.common.exceptionstus.BadArgumentsException;
 import kz.abdybaev.banking.lib.common.operation.KnownDescriptions;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,0 +1,8 @@
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/exceptions/BadArgumentsException.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/KnownDescriptions.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/exceptions/BaseControllerAdvice.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/StatusCode.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/OperationStatus.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/Operation.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/OperationFactory.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/exceptions/GenericException.java

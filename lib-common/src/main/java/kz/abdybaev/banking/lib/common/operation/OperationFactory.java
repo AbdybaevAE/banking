@@ -5,4 +5,7 @@ public class OperationFactory {
     public static OperationStatus ok() {
         return okOperation;
     }
+    public static OperationStatus badArguments(String statusDescription) {
+        return new OperationStatus(StatusCode.BAD_REQUEST, statusDescription);
+    }
 }

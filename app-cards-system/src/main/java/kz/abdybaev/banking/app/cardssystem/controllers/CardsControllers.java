@@ -32,7 +32,7 @@ public class CardsControllers {
     }
     @PostMapping
     public CreateCardRs createCard(
-            @Valid  @RequestBody CreateCardRq request
+            @Valid @RequestBody CreateCardRq request
             ) {
         var args = new CreateCardArgs(request.getUserId(), request.getBalances());
         var res = cardsService.createCard(args);
