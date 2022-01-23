@@ -1,7 +1,6 @@
 package kz.abdybaev.banking.app.cardssystem.entities;
 
 import kz.abdybaev.banking.lib.cardssystem.domain.BalanceKind;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;

@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,7 +24,7 @@ public class CardsControllers {
                             .stream()
                             .map(balanceRes -> new BalanceItemDto(balanceRes.balanceKind(), balanceRes.value()))
                             .collect(Collectors.toSet());
-                    return new GetCardItemRs(item.cardId(), item.userId(), balances);
+                    return new GetCardItemRs(item.userId(), item.cardId(), balances);
                 })
                 .collect(Collectors.toSet());
         return new GetCardsRs(cards);

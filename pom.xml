@@ -16,6 +16,8 @@
         <module>lib-common</module>
         <module>lib-cards-system</module>
         <module>app-cards-system</module>
+        <module>app-transfers-system</module>
+        <module>lib-transfers-system</module>
     </modules>
 
     <name>banking</name>
