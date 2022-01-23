@@ -2,13 +2,14 @@ package kz.abdybaev.banking.app.cardssystem.services;
 
 import kz.abdybaev.banking.app.cardssystem.entities.BalanceEntity;
 import kz.abdybaev.banking.app.cardssystem.entities.CardEntity;
+import kz.abdybaev.banking.app.cardssystem.repositories.BalanceRepository;
 import kz.abdybaev.banking.app.cardssystem.repositories.CardsRepository;
 import kz.abdybaev.banking.app.cardssystem.services.dto.BalanceRes;
 import kz.abdybaev.banking.app.cardssystem.services.dto.CreateCardArgs;
 import kz.abdybaev.banking.app.cardssystem.services.dto.CreateCardRes;
 import kz.abdybaev.banking.app.cardssystem.services.dto.GetCardItemRes;
 import kz.abdybaev.banking.lib.cardssystem.dto.BalanceItemDto;
-import kz.abdybaev.banking.lib.common.exceptionstus.BadArgumentsException;
+import kz.abdybaev.banking.lib.common.exceptions.BadArgumentsException;
 import kz.abdybaev.banking.lib.common.operation.KnownDescriptions;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CardsServiceImpl implements CardsService {
     private final CardsRepository cardsRepository;
+    private final BalanceRepository balanceRepository;
 
     @Override
     public CreateCardRes createCard(CreateCardArgs args) {

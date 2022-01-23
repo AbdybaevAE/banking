@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CardsControllers {
     private final CardsService cardsService;
+
     @GetMapping
     public GetCardsRs getAllCards() {
         var cards = cardsService.getCards()
@@ -30,10 +31,11 @@ public class CardsControllers {
                 .collect(Collectors.toSet());
         return new GetCardsRs(cards);
     }
+
     @PostMapping
     public CreateCardRs createCard(
             @Valid @RequestBody CreateCardRq request
-            ) {
+    ) {
         var args = new CreateCardArgs(request.getUserId(), request.getBalances());
         var res = cardsService.createCard(args);
         return new CreateCardRs(res.cardId());
