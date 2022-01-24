@@ -7,8 +7,7 @@
         <groupId>kz.abdybaev.banking</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>kz.abdybaev.banking</groupId>
-    <artifactId>all-cards</artifactId>
+    <artifactId>app-cards</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>app-cards</name>
     <description>app-cards</description>

@@ -1,7 +1,0 @@
-kz/abdybaev/banking/app/transfers/controllers/TransfersController.class
-kz/abdybaev/banking/app/transfers/repositories/TransactionsRepository.class
-kz/abdybaev/banking/app/transfers/TransfersSystemApplication.class
-kz/abdybaev/banking/app/transfers/entities/TransactionEntity.class
-kz/abdybaev/banking/app/transfers/services/TransfersService.class
-kz/abdybaev/banking/app/transfers/config/AppConfig.class
-kz/abdybaev/banking/app/transfers/services/dto/CardToCardArgs.class

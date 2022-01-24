@@ -1,7 +1,0 @@
-/Users/azamatabdybaev/repos/projects/banking/parent-project/app-transfers/src/main/java/kz/abdybaev/banking/app/transfers/config/AppConfig.java
-/Users/azamatabdybaev/repos/projects/banking/parent-project/app-transfers/src/main/java/kz/abdybaev/banking/app/transfers/entities/TransactionEntity.java
-/Users/azamatabdybaev/repos/projects/banking/parent-project/app-transfers/src/main/java/kz/abdybaev/banking/app/transfers/TransfersSystemApplication.java
-/Users/azamatabdybaev/repos/projects/banking/parent-project/app-transfers/src/main/java/kz/abdybaev/banking/app/transfers/repositories/TransactionsRepository.java
-/Users/azamatabdybaev/repos/projects/banking/parent-project/app-transfers/src/main/java/kz/abdybaev/banking/app/transfers/controllers/TransfersController.java
-/Users/azamatabdybaev/repos/projects/banking/parent-project/app-transfers/src/main/java/kz/abdybaev/banking/app/transfers/services/TransfersService.java
-/Users/azamatabdybaev/repos/projects/banking/parent-project/app-transfers/src/main/java/kz/abdybaev/banking/app/transfers/services/dto/CardToCardArgs.java
