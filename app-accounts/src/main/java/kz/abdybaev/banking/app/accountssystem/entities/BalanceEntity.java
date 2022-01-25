@@ -1,4 +1,4 @@
-package kz.abdybaev.banking.app.cardssystem.entities;
+package kz.abdybaev.banking.app.accountssystem.entities;
 
 import kz.abdybaev.banking.lib.cardssystem.domain.BalanceKind;
 import lombok.Getter;
@@ -20,8 +20,8 @@ public class BalanceEntity {
 
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CARD_ID")
-    private CardEntity cardEntity;
+    @JoinColumn(name = "ACCOUNT_ID")
+    private AccountEntity accountEntity;
 
     @Column(name = "BALANCE_VALUE", nullable = false)
     private BigDecimal value;

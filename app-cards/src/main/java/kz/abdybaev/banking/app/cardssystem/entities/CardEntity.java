@@ -23,4 +23,7 @@ public class CardEntity {
 
     @Column(name = "USER_ID", nullable = false)
     private Long userId;
+
+    @Column(name = "ACCOUNT_ID", nullable = false)
+    private Long accountId;
 }
