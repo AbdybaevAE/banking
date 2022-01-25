@@ -1,5 +1,6 @@
 package kz.abdybaev.banking.app.accountssystem.entities;
 
+import kz.abdybaev.banking.lib.accounts.domain.AccountType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,4 +15,11 @@ public class AccountEntity {
     @Column(name = "ACCOUNT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "USER_ID", nullable = false)
+    private Long userId;
+
+    @Column(name = "ACCOUNT_TYPE", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
 }
