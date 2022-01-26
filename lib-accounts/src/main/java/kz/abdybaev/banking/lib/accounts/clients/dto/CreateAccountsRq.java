@@ -1,7 +1,7 @@
 package kz.abdybaev.banking.lib.accounts.clients.dto;
 
 import kz.abdybaev.banking.lib.accounts.domain.AccountType;
-import kz.abdybaev.banking.lib.cardssystem.dto.BalanceItemDto;
+import kz.abdybaev.banking.lib.common.dto.CreateBalanceRq;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -16,7 +16,7 @@ public class CreateAccountsRq {
 
     @NotEmpty
     @Valid
-    private List<BalanceItemDto> balances;
+    private List<CreateBalanceRq> balances;
 
     @NotEmpty
     private AccountType accountType;

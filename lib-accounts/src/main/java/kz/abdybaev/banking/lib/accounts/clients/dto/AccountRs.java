@@ -1,18 +1,17 @@
 package kz.abdybaev.banking.lib.accounts.clients.dto;
 
 import kz.abdybaev.banking.lib.accounts.domain.AccountType;
-import kz.abdybaev.banking.lib.cardssystem.dto.BalanceItemDto;
+import kz.abdybaev.banking.lib.common.dto.BalanceRs;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
 @Builder
-public class AccountRsItem {
+public class AccountRs {
     private Long accountId;
     private AccountType accountType;
-    private List<BalanceItemDto> balances;
+    private List<BalanceRs> balances;
     private Long userId;
 }

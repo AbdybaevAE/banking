@@ -1,0 +1,12 @@
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/CreateAccountsRq.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/domain/AccountType.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/CreateDebitRq.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/CreateCreditRs.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/AccountsClientImpl.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/AccountRs.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/SearchAccountRq.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/AccountsClientConfig.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/CreateAccountRs.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/AccountsClient.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/CreateCreditRq.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-accounts/src/main/java/kz/abdybaev/banking/lib/accounts/clients/dto/CreateDebitRs.java

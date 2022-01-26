@@ -1,6 +1,5 @@
 package kz.abdybaev.banking.app.accountssystem.entities;
 
-import kz.abdybaev.banking.lib.common.domain.BalanceKind;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
@@ -8,25 +7,21 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "CREDIT")
 @Getter
 @Setter
-@Table(name = "BALANCE")
-@Entity
-public class BalanceEntity {
+public class CreditEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BALANCE_ID")
+    @Column(name = "CREDIT_ID")
     private Long id;
+
+    @Column(name = "CREDIT_AMOUNT", nullable = false)
+    private BigDecimal amount;
 
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private AccountEntity accountEntity;
-
-    @Column(name = "BALANCE_VALUE", nullable = false)
-    private BigDecimal value;
-
-    @Column(name = "BALANCE_KIND", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private BalanceKind balanceKind;
 }

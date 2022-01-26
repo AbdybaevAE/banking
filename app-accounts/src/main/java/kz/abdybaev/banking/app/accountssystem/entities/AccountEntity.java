@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,4 +24,7 @@ public class AccountEntity {
     @Column(name = "ACCOUNT_TYPE", nullable = false)
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountEntity", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<BalanceEntity> balances = new HashSet<>();
 }

@@ -17,17 +17,18 @@ public class CardsControllers {
 
     @GetMapping
     public GetCardsRs getAllCards() {
-        var cards = cardsService.getCards()
-                .stream()
-                .map(item -> {
-                    var balances = item.balances()
-                            .stream()
-                            .map(balanceRes -> new BalanceItemDto(balanceRes.balanceKind(), balanceRes.value()))
-                            .collect(Collectors.toSet());
-                    return new GetCardItemRs(item.userId(), item.cardId(), balances);
-                })
-                .collect(Collectors.toSet());
-        return new GetCardsRs(cards);
+        return null;
+//        var cards = cardsService.getCards()
+//                .stream()
+//                .map(item -> {
+//                    var balances = item.balances()
+//                            .stream()
+//                            .map(item ->  null)
+//                            .collect(Collectors.toSet());
+//                    return new GetCardItemRs(item.userId(), item.cardId(), balances);
+//                })
+//                .collect(Collectors.toSet());
+//        return new GetCardsRs(cards);
     }
 
     @PostMapping

@@ -9,7 +9,6 @@ import kz.abdybaev.banking.app.cardssystem.services.dto.CreateCardArgs;
 import kz.abdybaev.banking.app.cardssystem.services.dto.CreateCardRes;
 import kz.abdybaev.banking.app.cardssystem.services.dto.GetCardItemRes;
 import kz.abdybaev.banking.lib.cardssystem.domain.BalanceKind;
-import kz.abdybaev.banking.lib.cardssystem.dto.BalanceItemDto;
 import kz.abdybaev.banking.lib.common.exceptions.BadArgumentsException;
 import kz.abdybaev.banking.lib.common.operation.KnownDescriptions;
 import lombok.AllArgsConstructor;
@@ -30,12 +29,12 @@ public class CardsServiceImpl implements CardsService {
 
     @Override
     public CreateCardRes createCard(CreateCardArgs args) {
-        var balanceKinds = args.balances().stream().map(BalanceItemDto::getKind).collect(Collectors.toSet());
+        var balanceKinds = args.balances().stream().map(CreateBalanceRq::getKind).collect(Collectors.toSet());
         if (balanceKinds.size() != args.balances().size())
             throw new BadArgumentsException(KnownDescriptions.PROVIDE_DEFINED_BALANCES);
         var notProvidedBalancesStream = Arrays.stream(BalanceKind.values())
                 .filter(Predicate.not(balanceKinds::contains))
-                .map(kind -> new BalanceItemDto(kind, BigDecimal.ZERO));
+                .map(kind -> new CreateBalanceRq(kind, BigDecimal.ZERO));
 
         var cardEntity = new CardEntity();
         cardEntity.setUserId(args.userId());

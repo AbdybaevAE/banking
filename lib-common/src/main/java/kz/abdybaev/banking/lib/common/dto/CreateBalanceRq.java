@@ -1,6 +1,6 @@
-package kz.abdybaev.banking.lib.cardssystem.dto;
+package kz.abdybaev.banking.lib.common.dto;
 
-import kz.abdybaev.banking.lib.cardssystem.domain.BalanceKind;
+import kz.abdybaev.banking.lib.common.domain.BalanceKind;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
-@Data
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class BalanceItemDto {
+public class CreateBalanceRq {
     @NotNull
     private BalanceKind kind;
     @NotNull

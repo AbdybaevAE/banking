@@ -1,8 +1,13 @@
+kz/abdybaev/banking/lib/common/domain/BalanceKind.class
+kz/abdybaev/banking/lib/common/dto/BalanceRs.class
+kz/abdybaev/banking/lib/common/dto/CreateBalanceRq.class
 kz/abdybaev/banking/lib/common/operation/Operation.class
 kz/abdybaev/banking/lib/common/exceptions/GenericException.class
+kz/abdybaev/banking/lib/common/dto/OperationRs.class
 kz/abdybaev/banking/lib/common/operation/OperationFactory.class
-kz/abdybaev/banking/lib/common/exceptions/BadArgumentsException.class
 kz/abdybaev/banking/lib/common/exceptions/BaseControllerAdvice.class
 kz/abdybaev/banking/lib/common/operation/KnownDescriptions.class
 kz/abdybaev/banking/lib/common/operation/OperationStatus.class
 kz/abdybaev/banking/lib/common/operation/StatusCode.class
+kz/abdybaev/banking/lib/common/dto/SearchRs.class
+kz/abdybaev/banking/lib/common/exceptions/BadArgumentsException.class
