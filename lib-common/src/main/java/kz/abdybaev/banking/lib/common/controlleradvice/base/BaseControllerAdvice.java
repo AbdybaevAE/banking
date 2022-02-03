@@ -1,4 +1,4 @@
-package kz.abdybaev.banking.lib.common.exceptions;
+package kz.abdybaev.banking.lib.common.controlleradvice.base;
 
 import kz.abdybaev.banking.lib.common.operation.KnownDescriptions;
 import kz.abdybaev.banking.lib.common.operation.Operation;

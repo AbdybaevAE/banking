@@ -9,4 +9,4 @@ spring:
   jooq:
     sql-dialect: org.hibernate.dialect.PostgreSQLDialect
 server:
-  port: 10000
+  port: 10050

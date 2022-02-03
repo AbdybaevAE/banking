@@ -1,6 +1,4 @@
 kz/abdybaev/banking/lib/cardssystem/dto/GetCardItemRs.class
 kz/abdybaev/banking/lib/cardssystem/dto/CreateCardRs.class
 kz/abdybaev/banking/lib/cardssystem/dto/CreateCardRq.class
-kz/abdybaev/banking/lib/cardssystem/dto/BalanceItemDto.class
-kz/abdybaev/banking/lib/cardssystem/domain/BalanceKind.class
 kz/abdybaev/banking/lib/cardssystem/dto/GetCardsRs.class

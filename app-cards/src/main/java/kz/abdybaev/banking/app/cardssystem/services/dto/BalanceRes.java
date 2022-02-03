@@ -1,6 +1,7 @@
 package kz.abdybaev.banking.app.cardssystem.services.dto;
 
-import kz.abdybaev.banking.lib.cardssystem.domain.BalanceKind;
+
+import kz.abdybaev.banking.lib.common.domain.BalanceKind;
 
 import java.math.BigDecimal;
 

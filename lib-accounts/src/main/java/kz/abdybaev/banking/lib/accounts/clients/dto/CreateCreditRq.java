@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Data
 public class CreateCreditRq {
     @NotNull
-    private Long accountId;
-    @NotNull
     @Positive
     private BigDecimal amount;
     @NotNull

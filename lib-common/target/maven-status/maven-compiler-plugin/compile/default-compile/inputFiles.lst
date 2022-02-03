@@ -1,6 +1,6 @@
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/dto/SearchRs.java
-/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/exceptions/BaseControllerAdvice.java
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/OperationStatus.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/controlleradvice/BaseControllerAdviceConfig.java
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/Operation.java
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/OperationFactory.java
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/dto/CreateBalanceRq.java
@@ -10,4 +10,5 @@
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/dto/OperationRs.java
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/dto/BalanceRs.java
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/operation/StatusCode.java
+/Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/controlleradvice/base/BaseControllerAdvice.java
 /Users/azamatabdybaev/repos/projects/banking/parent-project/lib-common/src/main/java/kz/abdybaev/banking/lib/common/domain/BalanceKind.java

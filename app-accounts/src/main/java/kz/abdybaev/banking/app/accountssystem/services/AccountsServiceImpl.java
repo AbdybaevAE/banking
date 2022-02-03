@@ -2,17 +2,25 @@ package kz.abdybaev.banking.app.accountssystem.services;
 
 import kz.abdybaev.banking.app.accountssystem.entities.AccountEntity;
 import kz.abdybaev.banking.app.accountssystem.entities.BalanceEntity;
+import kz.abdybaev.banking.app.accountssystem.entities.CreditEntity;
+import kz.abdybaev.banking.app.accountssystem.entities.DebitEntity;
 import kz.abdybaev.banking.app.accountssystem.repositories.AccountsRepository;
 import kz.abdybaev.banking.app.accountssystem.services.converters.AccountConverter;
 import kz.abdybaev.banking.app.accountssystem.services.converters.BalanceConverter;
 import kz.abdybaev.banking.app.accountssystem.services.dto.*;
 import kz.abdybaev.banking.lib.common.domain.BalanceKind;
 import kz.abdybaev.banking.lib.common.dto.CreateBalanceRq;
+import kz.abdybaev.banking.lib.common.exceptions.AccountNotFound;
 import kz.abdybaev.banking.lib.common.exceptions.BadArgumentsException;
+import kz.abdybaev.banking.lib.common.exceptions.InsufficentFundsException;
 import kz.abdybaev.banking.lib.common.operation.KnownDescriptions;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.LockModeType;
+import javax.security.auth.login.AccountNotFoundException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +34,7 @@ public class AccountsServiceImpl implements AccountsService {
     private final AccountsRepository accountsRepository;
     private final BalanceConverter balanceConverter;
     private final AccountConverter accountConverter;
+    private final EntityManagerFactory emf;
 
     @Override
     public CreateAccountRes createAccount(CreateAccountArgs args) {
@@ -35,6 +44,7 @@ public class AccountsServiceImpl implements AccountsService {
         var notProvidedBalancesStream = Arrays.stream(BalanceKind.values()).filter(Predicate.not(balanceKinds::contains)).map(kind -> new CreateBalanceRq(kind, BigDecimal.ZERO));
         var accountEntity = new AccountEntity();
         accountEntity.setUserId(args.userId());
+        accountEntity.setAccountType(args.accountType());
         var balances = Stream.concat(notProvidedBalancesStream, args.balances().stream()).map(balanceItemDto -> {
             var balanceEntity = new BalanceEntity();
             balanceEntity.setAccountEntity(accountEntity);
@@ -49,18 +59,48 @@ public class AccountsServiceImpl implements AccountsService {
 
     @Override
     public List<AccountRes> searchAccounts(SearchAccountsArgs args) {
+
         return null;
     }
 
     @Override
+    @Transactional
     public CreateDebitRes createDebit(CreateDebitArgs args) {
-
-        return null;
+        var em = emf.createEntityManager();
+        var accountEntity = em.find(AccountEntity.class, args.accountId(), LockModeType.PESSIMISTIC_WRITE);
+        if (accountEntity == null) {
+            throw new AccountNotFound();
+        }
+        var availableBalance = accountEntity.getAvailableBalance();
+        if (availableBalance.getValue().compareTo(args.amount()) < 0) {
+            throw new InsufficentFundsException();
+        }
+        var newValue = availableBalance.getValue().subtract(args.amount());
+        availableBalance.setValue(newValue);
+        var debit = new DebitEntity();
+        debit.setAccountEntity(accountEntity);
+        debit.setAmount(args.amount());
+        em.persist(availableBalance);
+        em.persist(debit);
+        return new CreateDebitRes(debit.getId());
     }
 
     @Override
     public CreateCreditRes createCredit(CreateCreditArgs args) {
-        return null;
+        var em = emf.createEntityManager();
+        var accountEntity = em.find(AccountEntity.class, args.accountId(), LockModeType.PESSIMISTIC_WRITE);
+        if (accountEntity == null) {
+            throw new AccountNotFound();
+        }
+        var availableBalance = accountEntity.getAvailableBalance();
+        var newValue = availableBalance.getValue().add(args.amount());
+        availableBalance.setValue(newValue);
+        var credit = new CreditEntity();
+        credit.setAccountEntity(accountEntity);;
+        credit.setAmount(args.amount());
+        em.persist(availableBalance);
+        em.persist(credit);
+        return new CreateCreditRes(credit.getId());
     }
 
     @Override

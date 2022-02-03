@@ -1,10 +1,12 @@
 package kz.abdybaev.banking.app.accountssystem.entities;
 
 import kz.abdybaev.banking.lib.accounts.domain.AccountType;
+import kz.abdybaev.banking.lib.common.domain.BalanceKind;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,4 +29,12 @@ public class AccountEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountEntity", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<BalanceEntity> balances = new HashSet<>();
+
+    public BalanceEntity getAvailableBalance() {
+        return this.balances.stream()
+                .filter(balanceEntity -> balanceEntity.getBalanceKind().equals(BalanceKind.AVAILABLE))
+                .findAny()
+                .orElseThrow(IllegalStateException::new);
+    }
+
 }

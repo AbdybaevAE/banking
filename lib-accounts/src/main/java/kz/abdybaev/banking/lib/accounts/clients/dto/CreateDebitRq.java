@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 @Data
 public class CreateDebitRq {
     @NotNull
-    private Long accountId;
-    @NotNull
     private LocalDateTime time;
     @NotNull
     @Positive

@@ -1,7 +1,7 @@
 package kz.abdybaev.banking.app.cardssystem;
 
 import kz.abdybaev.banking.app.cardssystem.config.AppConfig;
-import kz.abdybaev.banking.lib.common.exceptions.BaseControllerAdvice;
+import kz.abdybaev.banking.lib.common.controlleradvice.base.BaseControllerAdvice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;

@@ -5,7 +5,6 @@ import kz.abdybaev.banking.lib.common.dto.CreateBalanceRq;
 import lombok.Data;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -14,10 +13,9 @@ public class CreateAccountsRq {
     @NotNull
     private Long userId;
 
-    @NotEmpty
     @Valid
     private List<CreateBalanceRq> balances;
 
-    @NotEmpty
+    @NotNull
     private AccountType accountType;
 }

@@ -1,5 +1,6 @@
 package kz.abdybaev.banking.app.accountssystem.services.converters;
 
+import kz.abdybaev.banking.app.accountssystem.domain.Account;
 import kz.abdybaev.banking.app.accountssystem.entities.AccountEntity;
 import kz.abdybaev.banking.app.accountssystem.services.dto.GetAccountItemRes;
 import lombok.AllArgsConstructor;
@@ -18,5 +19,13 @@ public class AccountConverter {
                 entity.getBalances().stream().map(balanceConverter::toBalanceRes).collect(Collectors.toSet()),
                 entity.getUserId(),
                 entity.getAccountType());
+    }
+    public Account toAccount(AccountEntity entity) {
+        return new Account(
+                entity.getId(),
+                entity.getUserId(),
+                entity.getAccountType(),
+                entity.getBalances().stream().map(balanceConverter::toBalanceRes).collect(Collectors.toList())
+        );
     }
 }

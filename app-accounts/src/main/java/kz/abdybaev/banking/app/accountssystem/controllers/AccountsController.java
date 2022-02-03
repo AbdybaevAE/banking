@@ -3,9 +3,9 @@ package kz.abdybaev.banking.app.accountssystem.controllers;
 import kz.abdybaev.banking.app.accountssystem.services.AccountsService;
 import kz.abdybaev.banking.app.accountssystem.services.converters.BalanceConverter;
 import kz.abdybaev.banking.app.accountssystem.services.dto.CreateAccountArgs;
-import kz.abdybaev.banking.lib.accounts.clients.dto.AccountRs;
-import kz.abdybaev.banking.lib.accounts.clients.dto.CreateAccountRs;
-import kz.abdybaev.banking.lib.accounts.clients.dto.CreateAccountsRq;
+import kz.abdybaev.banking.app.accountssystem.services.dto.CreateCreditArgs;
+import kz.abdybaev.banking.app.accountssystem.services.dto.CreateDebitArgs;
+import kz.abdybaev.banking.lib.accounts.clients.dto.*;
 import kz.abdybaev.banking.lib.common.dto.SearchRs;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +40,32 @@ public class AccountsController {
                                         .balances(item.balances().stream().map(balanceConverter::toBalanceRs).collect(Collectors.toList()))
                                         .build())
                         .collect(Collectors.toList()));
+    }
+    @PostMapping("{accountId}/transactions/debits")
+    public CreateDebitRs createDebit(
+            @PathVariable Long accountId,
+            @Valid @RequestBody CreateDebitRq request
+    ) {
+        var args = new CreateDebitArgs(
+                accountId,
+                request.getAmount(),
+                request.getTime()
+        );
+        var res = accountsService.createDebit(args);
+        return new CreateDebitRs(res.debitId());
+    }
+
+    @PostMapping("{accountId}/transactions/credits")
+    public CreateCreditRs createDebit(
+            @PathVariable Long accountId,
+            @Valid @RequestBody CreateCreditRq request
+    ) {
+        var args = new CreateCreditArgs(
+                accountId,
+                request.getAmount(),
+                request.getTime()
+        );
+        var res = accountsService.createCredit(args);
+        return new CreateCreditRs(res.creditId());
     }
 }

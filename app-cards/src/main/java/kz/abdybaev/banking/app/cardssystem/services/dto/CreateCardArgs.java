@@ -1,7 +1,7 @@
 package kz.abdybaev.banking.app.cardssystem.services.dto;
 
-import kz.abdybaev.banking.lib.cardssystem.dto.BalanceRs;
-import kz.abdybaev.banking.lib.cardssystem.dto.CreateBalanceRq;
+
+import kz.abdybaev.banking.lib.common.dto.CreateBalanceRq;
 
 import java.util.List;
 
