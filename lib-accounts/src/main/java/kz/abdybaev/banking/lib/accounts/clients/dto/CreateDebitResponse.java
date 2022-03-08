@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class CreateAccountRs {
-    private final Long accountId;
+public class CreateDebitResponse {
+    private Long debitId;
 }

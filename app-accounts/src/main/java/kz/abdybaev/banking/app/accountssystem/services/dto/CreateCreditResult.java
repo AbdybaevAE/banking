@@ -1,6 +1,6 @@
 package kz.abdybaev.banking.app.accountssystem.services.dto;
 
-public record CreateCreditRes(
+public record CreateCreditResult(
         Long creditId
 ) {
 }

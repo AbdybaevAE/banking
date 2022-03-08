@@ -1,5 +1,6 @@
 package kz.abdybaev.banking.app.accountssystem.entities;
 
+import kz.abdybaev.banking.lib.accounts.domain.AccountStatus;
 import kz.abdybaev.banking.lib.accounts.domain.AccountType;
 import kz.abdybaev.banking.lib.common.domain.BalanceKind;
 import lombok.Getter;
@@ -27,6 +28,10 @@ public class AccountEntity {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
+    @Column(name = "ACCOUNT_STATUS", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountEntity", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<BalanceEntity> balances = new HashSet<>();
 
@@ -36,5 +41,4 @@ public class AccountEntity {
                 .findAny()
                 .orElseThrow(IllegalStateException::new);
     }
-
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class CreateCreditRq {
+public class CreateCreditRequest {
     @NotNull
     @Positive
     private BigDecimal amount;

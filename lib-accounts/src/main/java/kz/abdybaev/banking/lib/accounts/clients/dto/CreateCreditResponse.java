@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class CreateCreditRs {
+public class CreateCreditResponse {
     private Long creditId;
 }

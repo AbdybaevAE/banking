@@ -5,5 +5,5 @@ import kz.abdybaev.banking.lib.common.dto.BalanceRs;
 
 import java.util.List;
 
-public record AccountRes(Long accountId, AccountType accountType, List<BalanceRs> balances) {
+public record AccountResult(Long accountId, AccountType accountType, List<BalanceRs> balances) {
 }

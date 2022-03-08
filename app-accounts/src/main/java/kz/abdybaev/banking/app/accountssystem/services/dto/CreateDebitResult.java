@@ -1,6 +1,6 @@
 package kz.abdybaev.banking.app.accountssystem.services.dto;
 
-public record CreateDebitRes(
+public record CreateDebitResult(
         Long debitId
 ) {
 }

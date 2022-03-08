@@ -1,10 +1,10 @@
 package kz.abdybaev.banking.lib.accounts.clients;
 
-import kz.abdybaev.banking.lib.accounts.clients.dto.CreateAccountRs;
-import kz.abdybaev.banking.lib.accounts.clients.dto.CreateAccountsRq;
+import kz.abdybaev.banking.lib.accounts.clients.dto.CreateAccountResponse;
+import kz.abdybaev.banking.lib.accounts.clients.dto.CreateAccountRequest;
 
 public interface AccountsClient {
-    CreateAccountRs createAccountRq(CreateAccountsRq request);
+    CreateAccountResponse createAccountRq(CreateAccountRequest request);
 
 
 }

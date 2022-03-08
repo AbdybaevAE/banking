@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class CreateBalanceRq {
+public class CreateBalanceRequest {
     @NotNull
     private BalanceKind kind;
     @NotNull

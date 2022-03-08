@@ -5,11 +5,12 @@ import kz.abdybaev.banking.app.accountssystem.entities.BalanceEntity;
 import kz.abdybaev.banking.app.accountssystem.entities.CreditEntity;
 import kz.abdybaev.banking.app.accountssystem.entities.DebitEntity;
 import kz.abdybaev.banking.app.accountssystem.repositories.AccountsRepository;
-import kz.abdybaev.banking.app.accountssystem.services.converters.AccountConverter;
+import kz.abdybaev.banking.app.accountssystem.services.converters.AccountsConverter;
 import kz.abdybaev.banking.app.accountssystem.services.converters.BalanceConverter;
 import kz.abdybaev.banking.app.accountssystem.services.dto.*;
+import kz.abdybaev.banking.lib.accounts.domain.AccountStatus;
 import kz.abdybaev.banking.lib.common.domain.BalanceKind;
-import kz.abdybaev.banking.lib.common.dto.CreateBalanceRq;
+import kz.abdybaev.banking.lib.common.dto.CreateBalanceRequest;
 import kz.abdybaev.banking.lib.common.exceptions.AccountNotFound;
 import kz.abdybaev.banking.lib.common.exceptions.BadArgumentsException;
 import kz.abdybaev.banking.lib.common.exceptions.InsufficentFundsException;
@@ -20,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
-import javax.security.auth.login.AccountNotFoundException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -33,18 +33,20 @@ import java.util.stream.Stream;
 public class AccountsServiceImpl implements AccountsService {
     private final AccountsRepository accountsRepository;
     private final BalanceConverter balanceConverter;
-    private final AccountConverter accountConverter;
+    private final AccountsConverter accountsConverter;
     private final EntityManagerFactory emf;
-
     @Override
-    public CreateAccountRes createAccount(CreateAccountArgs args) {
-        var balanceKinds = args.balances().stream().map(CreateBalanceRq::getKind).collect(Collectors.toSet());
+    public CreateAccountResult createAccount(CreateAccountArguments args) {
+        var balanceKinds = args.balances().stream().map(CreateBalanceRequest::getKind).collect(Collectors.toSet());
         if (balanceKinds.size() != args.balances().size())
             throw new BadArgumentsException(KnownDescriptions.PROVIDE_DEFINED_BALANCES);
-        var notProvidedBalancesStream = Arrays.stream(BalanceKind.values()).filter(Predicate.not(balanceKinds::contains)).map(kind -> new CreateBalanceRq(kind, BigDecimal.ZERO));
+        var notProvidedBalancesStream = Arrays.stream(BalanceKind.values())
+                .filter(Predicate.not(balanceKinds::contains))
+                .map(kind -> new CreateBalanceRequest(kind, BigDecimal.ZERO));
         var accountEntity = new AccountEntity();
         accountEntity.setUserId(args.userId());
         accountEntity.setAccountType(args.accountType());
+        accountEntity.setAccountStatus(AccountStatus.ACTIVE);
         var balances = Stream.concat(notProvidedBalancesStream, args.balances().stream()).map(balanceItemDto -> {
             var balanceEntity = new BalanceEntity();
             balanceEntity.setAccountEntity(accountEntity);
@@ -54,18 +56,18 @@ public class AccountsServiceImpl implements AccountsService {
         }).collect(Collectors.toSet());
         accountEntity.setBalances(balances);
         accountsRepository.save(accountEntity);
-        return new CreateAccountRes(accountEntity.getId());
+        return new CreateAccountResult(accountEntity.getId());
     }
 
     @Override
-    public List<AccountRes> searchAccounts(SearchAccountsArgs args) {
+    public List<AccountResult> searchAccounts(SearchAccountsArguments args) {
 
         return null;
     }
 
     @Override
     @Transactional
-    public CreateDebitRes createDebit(CreateDebitArgs args) {
+    public CreateDebitResult createDebit(CreateDebitArguments args) {
         var em = emf.createEntityManager();
         var accountEntity = em.find(AccountEntity.class, args.accountId(), LockModeType.PESSIMISTIC_WRITE);
         if (accountEntity == null) {
@@ -82,11 +84,11 @@ public class AccountsServiceImpl implements AccountsService {
         debit.setAmount(args.amount());
         em.persist(availableBalance);
         em.persist(debit);
-        return new CreateDebitRes(debit.getId());
+        return new CreateDebitResult(debit.getId());
     }
 
     @Override
-    public CreateCreditRes createCredit(CreateCreditArgs args) {
+    public CreateCreditResult createCredit(CreateCreditArguments args) {
         var em = emf.createEntityManager();
         var accountEntity = em.find(AccountEntity.class, args.accountId(), LockModeType.PESSIMISTIC_WRITE);
         if (accountEntity == null) {
@@ -100,14 +102,14 @@ public class AccountsServiceImpl implements AccountsService {
         credit.setAmount(args.amount());
         em.persist(availableBalance);
         em.persist(credit);
-        return new CreateCreditRes(credit.getId());
+        return new CreateCreditResult(credit.getId());
     }
 
     @Override
-    public List<GetAccountItemRes> getAccounts() {
+    public List<GetAccountItemResult> getAccounts() {
         return accountsRepository.findAll()
                 .stream()
-                .map(accountConverter::convert)
+                .map(accountsConverter::convert)
                 .collect(Collectors.toList());
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class AccountRs {
+public class AccountResponse {
     private Long accountId;
     private AccountType accountType;
     private List<BalanceRs> balances;

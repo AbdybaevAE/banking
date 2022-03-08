@@ -4,9 +4,9 @@ import kz.abdybaev.banking.lib.accounts.domain.AccountType;
 
 import java.util.Set;
 
-public record GetAccountItemRes(
+public record GetAccountItemResult(
         Long accountId,
-        Set<BalanceRes> balances,
+        Set<BalanceResult> balances,
         Long userId,
         AccountType accountType
 ) {

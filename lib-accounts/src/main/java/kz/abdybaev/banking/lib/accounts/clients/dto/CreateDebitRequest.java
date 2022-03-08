@@ -1,17 +1,17 @@
-package kz.abdybaev.banking.lib.transfers.dto;
+package kz.abdybaev.banking.lib.accounts.clients.dto;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
-public class CardToCardRq {
+public class CreateDebitRequest {
     @NotNull
-    private Long fromCardId;
+    private LocalDateTime time;
     @NotNull
-    private Long toCardId;
     @Positive
     private BigDecimal amount;
 }

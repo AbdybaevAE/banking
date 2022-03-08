@@ -1,12 +1,12 @@
 package kz.abdybaev.banking.app.accountssystem.controllers;
 
 import kz.abdybaev.banking.app.accountssystem.services.AccountsService;
+import kz.abdybaev.banking.app.accountssystem.services.converters.AccountsConverter;
 import kz.abdybaev.banking.app.accountssystem.services.converters.BalanceConverter;
-import kz.abdybaev.banking.app.accountssystem.services.dto.CreateAccountArgs;
-import kz.abdybaev.banking.app.accountssystem.services.dto.CreateCreditArgs;
-import kz.abdybaev.banking.app.accountssystem.services.dto.CreateDebitArgs;
+import kz.abdybaev.banking.app.accountssystem.services.dto.CreateCreditArguments;
+import kz.abdybaev.banking.app.accountssystem.services.dto.CreateDebitArguments;
 import kz.abdybaev.banking.lib.accounts.clients.dto.*;
-import kz.abdybaev.banking.lib.common.dto.SearchRs;
+import kz.abdybaev.banking.lib.common.dto.SearchResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,21 +19,22 @@ import java.util.stream.Collectors;
 public class AccountsController {
     private final AccountsService accountsService;
     private final BalanceConverter balanceConverter;
+    private final AccountsConverter accountsConverter;
 
     @PostMapping
-    public CreateAccountRs createAccount(@Valid @RequestBody CreateAccountsRq request) {
-        var args = new CreateAccountArgs(request.getUserId(), request.getBalances(), request.getAccountType());
-        var res = accountsService.createAccount(args);
-        return new CreateAccountRs(res.accountId());
+    public CreateAccountResponse createAccount(@Valid @RequestBody CreateAccountRequest request) {
+        var arguments = accountsConverter.toCreateAccountArguments(request);
+        var result = accountsService.createAccount(arguments);
+        return accountsConverter.toCreateAccountResponse(result);
     }
 
     @GetMapping
-    public SearchRs<AccountRs> getAccounts() {
-        var res = accountsService.getAccounts();
-        return new SearchRs<>(
-                res.stream()
+    public SearchResponse<AccountResponse> getAccounts() {
+        var records = accountsService.getAccounts();
+        return new SearchResponse<>(
+                records.stream()
                         .map(item ->
-                                AccountRs.builder()
+                                AccountResponse.builder()
                                         .userId(item.userId())
                                         .accountId(item.accountId())
                                         .accountType(item.accountType())
@@ -42,30 +43,30 @@ public class AccountsController {
                         .collect(Collectors.toList()));
     }
     @PostMapping("{accountId}/transactions/debits")
-    public CreateDebitRs createDebit(
+    public CreateDebitResponse createDebit(
             @PathVariable Long accountId,
-            @Valid @RequestBody CreateDebitRq request
+            @Valid @RequestBody CreateDebitRequest request
     ) {
-        var args = new CreateDebitArgs(
+        var args = new CreateDebitArguments(
                 accountId,
                 request.getAmount(),
                 request.getTime()
         );
         var res = accountsService.createDebit(args);
-        return new CreateDebitRs(res.debitId());
+        return new CreateDebitResponse(res.debitId());
     }
 
     @PostMapping("{accountId}/transactions/credits")
-    public CreateCreditRs createDebit(
+    public CreateCreditResponse createDebit(
             @PathVariable Long accountId,
-            @Valid @RequestBody CreateCreditRq request
+            @Valid @RequestBody CreateCreditRequest request
     ) {
-        var args = new CreateCreditArgs(
+        var args = new CreateCreditArguments(
                 accountId,
                 request.getAmount(),
                 request.getTime()
         );
         var res = accountsService.createCredit(args);
-        return new CreateCreditRs(res.creditId());
+        return new CreateCreditResponse(res.creditId());
     }
 }

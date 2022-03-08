@@ -1,7 +1,6 @@
 package kz.abdybaev.banking.lib.cardssystem.dto;
 
-import kz.abdybaev.banking.lib.common.dto.BalanceRs;
-import kz.abdybaev.banking.lib.common.dto.CreateBalanceRq;
+import kz.abdybaev.banking.lib.common.dto.CreateBalanceRequest;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -15,5 +14,5 @@ public class CreateCardRq {
     private Long userId;
 
     @NotEmpty @Valid
-    private List<CreateBalanceRq> balances;
+    private List<CreateBalanceRequest> balances;
 }
