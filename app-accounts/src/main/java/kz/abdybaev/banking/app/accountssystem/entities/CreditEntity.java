@@ -24,4 +24,7 @@ public class CreditEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private AccountEntity accountEntity;
+
+    @Column(name = "CREDIT_EXTERNAL_ID", nullable = false, unique = true)
+    private String externalId;
 }

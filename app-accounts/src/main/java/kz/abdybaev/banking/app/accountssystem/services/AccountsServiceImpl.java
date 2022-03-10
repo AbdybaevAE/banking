@@ -17,7 +17,6 @@ import kz.abdybaev.banking.lib.common.exceptions.InsufficentFundsException;
 import kz.abdybaev.banking.lib.common.operation.KnownDescriptions;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
@@ -35,6 +34,7 @@ public class AccountsServiceImpl implements AccountsService {
     private final BalanceConverter balanceConverter;
     private final AccountsConverter accountsConverter;
     private final EntityManagerFactory emf;
+    private static final int MIN_SIZE_EXTERNAL_ID = 32;
     @Override
     public CreateAccountResult createAccount(CreateAccountArguments args) {
         var balanceKinds = args.balances().stream().map(CreateBalanceRequest::getKind).collect(Collectors.toSet());
@@ -60,56 +60,67 @@ public class AccountsServiceImpl implements AccountsService {
     }
 
     @Override
-    public List<AccountResult> searchAccounts(SearchAccountsArguments args) {
-
-        return null;
+    public CreateDebitResult createDebit(CreateDebitArguments arguments) {
+        var em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            var accountEntity = em.find(AccountEntity.class, arguments.accountId(), LockModeType.PESSIMISTIC_WRITE);
+            if (accountEntity == null) {
+                throw new AccountNotFound();
+            }
+            var availableBalance = accountEntity.getAvailableBalance();
+            if (availableBalance.getValue().compareTo(arguments.amount()) < 0) {
+                throw new InsufficentFundsException();
+            }
+            var newValue = availableBalance.getValue().subtract(arguments.amount());
+            availableBalance.setValue(newValue);
+            var externalId = processExternalId(arguments.externalId());
+            var debit = new DebitEntity();
+            debit.setAccountEntity(accountEntity);
+            debit.setAmount(arguments.amount());
+            debit.setExternalId(externalId);
+            em.persist(availableBalance);
+            em.persist(debit);
+            em.getTransaction().commit();
+            return new CreateDebitResult(debit.getId(), accountEntity.getId(), debit.getAmount(), debit.getExternalId());
+        } catch (Exception exception) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw exception;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    @Transactional
-    public CreateDebitResult createDebit(CreateDebitArguments args) {
+    public CreateCreditResult createCredit(CreateCreditArguments arguments) {
         var em = emf.createEntityManager();
-        var accountEntity = em.find(AccountEntity.class, args.accountId(), LockModeType.PESSIMISTIC_WRITE);
+        var accountEntity = em.find(AccountEntity.class, arguments.accountId(), LockModeType.PESSIMISTIC_WRITE);
         if (accountEntity == null) {
             throw new AccountNotFound();
         }
         var availableBalance = accountEntity.getAvailableBalance();
-        if (availableBalance.getValue().compareTo(args.amount()) < 0) {
-            throw new InsufficentFundsException();
-        }
-        var newValue = availableBalance.getValue().subtract(args.amount());
+        var newValue = availableBalance.getValue().add(arguments.amount());
         availableBalance.setValue(newValue);
-        var debit = new DebitEntity();
-        debit.setAccountEntity(accountEntity);
-        debit.setAmount(args.amount());
-        em.persist(availableBalance);
-        em.persist(debit);
-        return new CreateDebitResult(debit.getId());
-    }
-
-    @Override
-    public CreateCreditResult createCredit(CreateCreditArguments args) {
-        var em = emf.createEntityManager();
-        var accountEntity = em.find(AccountEntity.class, args.accountId(), LockModeType.PESSIMISTIC_WRITE);
-        if (accountEntity == null) {
-            throw new AccountNotFound();
-        }
-        var availableBalance = accountEntity.getAvailableBalance();
-        var newValue = availableBalance.getValue().add(args.amount());
-        availableBalance.setValue(newValue);
+        var externalId = processExternalId(arguments.externalId());
         var credit = new CreditEntity();
         credit.setAccountEntity(accountEntity);;
-        credit.setAmount(args.amount());
+        credit.setAmount(arguments.amount());
+        credit.setExternalId(externalId);
         em.persist(availableBalance);
         em.persist(credit);
         return new CreateCreditResult(credit.getId());
     }
 
     @Override
-    public List<GetAccountItemResult> getAccounts() {
+    public List<GetAccountItemResult> getAccounts(SearchAccountsArguments arguments) {
         return accountsRepository.findAll()
                 .stream()
                 .map(accountsConverter::convert)
                 .collect(Collectors.toList());
+    }
+    private String processExternalId(String externalId) {
+        var value = externalId.trim();
+        if (value.length() < MIN_SIZE_EXTERNAL_ID) throw new BadArgumentsException(KnownDescriptions.INVALID_EXTERNAL_ID_LENGTH);
+        return value;
     }
 }

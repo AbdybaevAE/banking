@@ -8,13 +8,11 @@ import java.util.List;
  * Accounts service
  */
 public interface AccountsService {
-    CreateAccountResult createAccount(CreateAccountArguments args);
+    CreateAccountResult createAccount(CreateAccountArguments arguments);
 
-    List<AccountResult> searchAccounts(SearchAccountsArguments args);
+    CreateDebitResult createDebit(CreateDebitArguments arguments);
 
-    CreateDebitResult createDebit(CreateDebitArguments args);
+    CreateCreditResult createCredit(CreateCreditArguments arguments);
 
-    CreateCreditResult createCredit(CreateCreditArguments args);
-
-    List<GetAccountItemResult> getAccounts();
+    List<GetAccountItemResult> getAccounts(SearchAccountsArguments arguments);
 }

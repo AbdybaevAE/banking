@@ -6,5 +6,7 @@ import java.time.LocalDateTime;
 public record CreateDebitArguments(
         Long accountId,
         BigDecimal amount,
-        LocalDateTime time) {
+        LocalDateTime time,
+        String externalId
+) {
 }

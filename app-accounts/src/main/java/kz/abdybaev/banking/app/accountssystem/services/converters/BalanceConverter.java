@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BalanceConverter {
-    public BalanceResult toBalanceRes(BalanceEntity balanceEntity) {
+    public BalanceResult toBalanceResult(BalanceEntity balanceEntity) {
         return new BalanceResult(balanceEntity.getId(), balanceEntity.getBalanceKind(), balanceEntity.getValue());
     }
-    public BalanceRs toBalanceRs(BalanceResult res) {
+    public BalanceRs toBalanceResponse(BalanceResult res) {
         return new BalanceRs(res.balanceId(), res.balanceKind(), res.balanceAmount());
     }
 }

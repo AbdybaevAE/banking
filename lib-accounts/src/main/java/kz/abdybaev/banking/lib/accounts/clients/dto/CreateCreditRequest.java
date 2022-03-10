@@ -2,6 +2,8 @@ package kz.abdybaev.banking.lib.accounts.clients.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -14,4 +16,7 @@ public class CreateCreditRequest {
     private BigDecimal amount;
     @NotNull
     private LocalDateTime time;
+
+    @NotEmpty
+    private String externalId;
 }

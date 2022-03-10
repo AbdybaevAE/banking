@@ -1,10 +1,16 @@
 package kz.abdybaev.banking.lib.accounts.clients.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
-@Getter
+import java.math.BigDecimal;
+
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class CreateDebitResponse {
     private Long debitId;
+    private Long accountId;
+    private BigDecimal debitAmount;
+    private String transactionExternalId;
 }

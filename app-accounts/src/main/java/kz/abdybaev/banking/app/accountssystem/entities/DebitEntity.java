@@ -24,4 +24,8 @@ public class DebitEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private AccountEntity accountEntity;
+
+    @Column(name = "DEBIT_EXTERNAL_ID", nullable = false, unique = true)
+    private String externalId;
+
 }

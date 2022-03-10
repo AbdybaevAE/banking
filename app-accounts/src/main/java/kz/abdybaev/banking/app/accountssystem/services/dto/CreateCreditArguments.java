@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public record CreateCreditArguments(
         Long accountId,
         BigDecimal amount,
-        LocalDateTime time
+        LocalDateTime time,
+        String externalId
 ) {
 }
