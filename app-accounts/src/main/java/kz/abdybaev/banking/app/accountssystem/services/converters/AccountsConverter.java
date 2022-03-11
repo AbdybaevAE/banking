@@ -1,6 +1,5 @@
 package kz.abdybaev.banking.app.accountssystem.services.converters;
 
-import kz.abdybaev.banking.app.accountssystem.domain.Account;
 import kz.abdybaev.banking.app.accountssystem.entities.AccountEntity;
 import kz.abdybaev.banking.app.accountssystem.services.dto.*;
 import kz.abdybaev.banking.lib.accounts.clients.dto.*;
@@ -46,7 +45,7 @@ public class AccountsConverter {
                 accountId,
                 request.getAmount(),
                 request.getTime(),
-                request.getTransactionExternalId()
+                request.getExternalId()
         );
     }
     public CreateDebitResponse toCreateDebitResponse(CreateDebitResult result) {
@@ -67,5 +66,13 @@ public class AccountsConverter {
                 .creditAmount(result.creditAmount())
                 .externalId(result.externalId())
                 .build();
+    }
+    public UpdateTransactionStatusArguments toUpdateTransactionStatusArguments(Long accountId, UpdateTransactionStatusRequest request) {
+        return new UpdateTransactionStatusArguments(
+                accountId,
+                request.getTransactions().stream().map(item ->
+                    new UpdateTransactionStatusItemArguments(item.getExternalId(), item.getTransactionStatus(), item.getTransactionType())
+                ).collect(Collectors.toList())
+        );
     }
 }

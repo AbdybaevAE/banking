@@ -10,9 +10,5 @@ import java.util.List;
 public interface AccountsService {
     CreateAccountResult createAccount(CreateAccountArguments arguments);
 
-    CreateDebitResult createDebit(CreateDebitArguments arguments);
-
-    CreateCreditResult createCredit(CreateCreditArguments arguments);
-
     List<GetAccountItemResult> getAccounts(SearchAccountsArguments arguments);
 }

@@ -1,5 +1,6 @@
 package kz.abdybaev.banking.app.accountssystem.entities;
 
+import kz.abdybaev.banking.lib.accounts.domain.TransactionStatus;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
@@ -27,4 +28,11 @@ public class CreditEntity {
 
     @Column(name = "CREDIT_EXTERNAL_ID", nullable = false, unique = true)
     private String externalId;
+
+    @Column(name = "CREDIT_STATUS", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus transactionStatus;
+
+
+
 }

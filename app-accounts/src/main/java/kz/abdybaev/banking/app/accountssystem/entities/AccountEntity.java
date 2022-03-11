@@ -41,4 +41,10 @@ public class AccountEntity {
                 .findAny()
                 .orElseThrow(IllegalStateException::new);
     }
+    public BalanceEntity getBlockedBalance() {
+        return this.balances.stream()
+                .filter(balanceEntity -> balanceEntity.getBalanceKind().equals(BalanceKind.BLOCKED))
+                .findAny()
+                .orElseThrow(IllegalStateException::new);
+    }
 }

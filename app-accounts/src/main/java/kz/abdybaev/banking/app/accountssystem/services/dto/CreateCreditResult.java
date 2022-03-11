@@ -7,6 +7,5 @@ public record CreateCreditResult(
         Long creditId,
         BigDecimal creditAmount,
         String externalId
-
 ) {
 }

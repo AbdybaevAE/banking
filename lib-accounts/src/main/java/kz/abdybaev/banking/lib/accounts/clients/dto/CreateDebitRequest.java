@@ -17,5 +17,5 @@ public class CreateDebitRequest {
     private BigDecimal amount;
 
     @NotEmpty
-    private String transactionExternalId;
+    private String externalId;
 }
