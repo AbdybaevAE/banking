@@ -29,4 +29,11 @@ public class BalanceEntity {
     @Column(name = "BALANCE_KIND", nullable = false)
     @Enumerated(EnumType.STRING)
     private BalanceKind balanceKind;
+
+    public void subtract(BigDecimal operationValue) {
+        this.value = this.value.subtract(operationValue);
+    }
+    public void add(BigDecimal operationValue) {
+        this.value = this.value.add(operationValue);
+    }
 }

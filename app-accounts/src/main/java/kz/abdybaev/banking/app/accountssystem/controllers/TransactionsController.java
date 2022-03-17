@@ -46,5 +46,4 @@ public class TransactionsController {
         transactionsService.updateTransactionsStatus(arguments);
         return operationFactory.okResponse();
     }
-
 }

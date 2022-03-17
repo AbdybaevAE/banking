@@ -1,5 +1,6 @@
 package kz.abdybaev.banking.app.accountssystem.entities;
 
+import kz.abdybaev.banking.app.accountssystem.domain.Transaction;
 import kz.abdybaev.banking.lib.accounts.domain.TransactionStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @Table(name = "DEBIT")
 @Getter
 @Setter
-public class DebitEntity {
+public class DebitEntity implements Transaction {
     @Id
     @Column(name = "DEBIT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +33,17 @@ public class DebitEntity {
     @Column(name = "DEBIT_STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
+
+    @Override
+    public void decline() {
+        this.transactionStatus = TransactionStatus.DECLINED;
+        this.accountEntity.getBlockedBalance().subtract(amount);
+    }
+
+    @Override
+    public void approve() {
+        this.transactionStatus = TransactionStatus.APPROVED;
+        this.accountEntity.getBlockedBalance().subtract(amount);
+        this.accountEntity.getAvailableBalance().subtract(amount);
+    }
 }
