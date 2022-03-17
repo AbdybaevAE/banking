@@ -7,11 +7,11 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Data
-public class CardToCardRequest {
+public class InternalAcc2AccRequest {
     @NotNull
-    private Long fromCardId;
+    private Long fromAccountId;
     @NotNull
-    private Long toCardId;
+    private Long toAccountId;
     @Positive
     private BigDecimal amount;
 }

@@ -1,11 +1,10 @@
 package kz.abdybaev.banking.app.transfers.controllers;
 
+import kz.abdybaev.banking.app.transfers.converters.TransfersConverter;
 import kz.abdybaev.banking.app.transfers.services.TransfersService;
-import kz.abdybaev.banking.app.transfers.services.dto.CardToCardArgs;
 import kz.abdybaev.banking.lib.common.dto.OperationResponse;
 import kz.abdybaev.banking.lib.common.factories.operation.OperationFactory;
-import kz.abdybaev.banking.lib.common.operation.OperationStatus;
-import kz.abdybaev.banking.lib.transfers.dto.CardToCardRequest;
+import kz.abdybaev.banking.lib.transfers.dto.InternalAcc2AccRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +15,16 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("transfers")
+@RequestMapping("transfers/internal")
 @AllArgsConstructor
-public class TransfersController {
+public class InternalTransfers {
     private final TransfersService transfersService;
     private final OperationFactory operationFactory;
-    @PostMapping("account-to-account")
-    public OperationResponse cardToCard(@Valid @RequestBody CardToCardRequest request) {
-        var args = new CardToCardArgs(request.getFromCardId(), request.getToCardId(), request.getAmount());
-        transfersService.cardToCard(args);
-        return operationFactory.okResponse();
+    private final TransfersConverter transfersConverter;
+    @PostMapping("acc2acc")
+    public OperationResponse acc2acc(@Valid @RequestBody InternalAcc2AccRequest request) {
+        var arguments = transfersConverter.toInternalAcc2AccArguments(request);
+        transfersService.internalAcc2Acc(arguments);
+        return null;
     }
 }
